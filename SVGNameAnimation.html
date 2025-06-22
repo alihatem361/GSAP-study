@@ -7,8 +7,33 @@
 
     <!-- 1. بنستدعي مكتبة GSAP من الـ CDN عشان نقدر نستخدمها -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+      .gallery-link {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #4a90e2;
+        color: white;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+
+      .gallery-link:hover {
+        background-color: #3a7bc8;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+    </style>
   </head>
   <body>
+    <!-- gallery link -->
+    <a href="index.html" class="gallery-link">معرض الأنيميشن</a>
+
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -82,6 +107,8 @@
         </g>
       </g>
     </svg>
+
+    <a href="#" class="gallery-link">View Gallery</a>
 
     <script>
       // بنعمل انيميشن للـ SVG from to

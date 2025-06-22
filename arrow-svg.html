@@ -1,151 +1,185 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>أنيميشن رسم سهم</title>
 
     <!-- 1. استدعاء مكتبة GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
     <style>
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: #2c3e50; /* لون خلفية غامق ومختلف */
-            color: #ecf0f1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-            text-align: center;
-        }
+      body {
+        font-family: "Cairo", sans-serif;
+        background-color: #2c3e50; /* لون خلفية غامق ومختلف */
+        color: #ecf0f1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+        box-sizing: border-box;
+        text-align: center;
+      }
 
-        .container {
-            width: 90%;
-            max-width: 800px;
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            color: #ff914d; /* نفس لون السهم */
-            margin-bottom: 30px;
-            font-weight: 700;
-        }
-        
-        .controls {
-            margin-bottom: 30px;
-        }
+      .container {
+        width: 90%;
+        max-width: 800px;
+      }
 
-        .controls button {
-            font-family: 'Cairo', sans-serif;
-            font-size: 1.2rem;
-            font-weight: bold;
-            padding: 12px 30px;
-            border: 2px solid #ff914d;
-            border-radius: 8px;
-            cursor: pointer;
-            color: #ff914d;
-            background-color: transparent;
-            transition: all 0.3s ease;
-        }
-        
-        .controls button:hover {
-            background-color: #ff914d;
-            color: #2c3e50;
-        }
+      h1 {
+        font-size: 2.5rem;
+        color: #ff914d; /* نفس لون السهم */
+        margin-bottom: 30px;
+        font-weight: 700;
+      }
 
-        .svg-scene {
-            position: relative;
-            width: 100%;
-            padding: 20px;
-            background-color: #34495e;
-            border-radius: 15px;
-            border: 1px solid #4a6fa5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+      .controls {
+        margin-bottom: 30px;
+      }
 
-        #arrow-svg {
-            width: 100%;
-            max-width: 750px;
-            height: auto;
-        }
+      .controls button {
+        font-family: "Cairo", sans-serif;
+        font-size: 1.2rem;
+        font-weight: bold;
+        padding: 12px 30px;
+        border: 2px solid #ff914d;
+        border-radius: 8px;
+        cursor: pointer;
+        color: #ff914d;
+        background-color: transparent;
+        transition: all 0.3s ease;
+      }
 
-        /* تعديل أساسي: بنلغي التعبئة ونخلي فيه خط خارجي بس */
-        #arrow-svg path {
-            fill: none; /* مهم جداً لإلغاء التعبئة */
-            stroke: #ff914d; /* لون الخط الخارجي */
-            stroke-width: 4; /* سمك الخط عشان يبقى واضح */
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
+      .controls button:hover {
+        background-color: #ff914d;
+        color: #2c3e50;
+      }
 
+      .svg-scene {
+        position: relative;
+        width: 100%;
+        padding: 20px;
+        background-color: #34495e;
+        border-radius: 15px;
+        border: 1px solid #4a6fa5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #arrow-svg {
+        width: 100%;
+        max-width: 750px;
+        height: auto;
+      }
+
+      /* تعديل أساسي: بنلغي التعبئة ونخلي فيه خط خارجي بس */
+      #arrow-svg path {
+        fill: none; /* مهم جداً لإلغاء التعبئة */
+        stroke: #ff914d; /* لون الخط الخارجي */
+        stroke-width: 4; /* سمك الخط عشان يبقى واضح */
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
     </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      .gallery-link {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background-color: #ff914d;
+        color: #2c3e50;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        z-index: 1000;
+        font-family: "Cairo", sans-serif;
+      }
+
+      .gallery-link:hover {
+        background-color: #ffaa77;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- gallery link -->
+    <a href="index.html" class="gallery-link">معرض الأنيميشن</a>
 
     <div class="container">
-        <h1>أنيميشن رسم سهم من اليمين للشمال</h1>
+      <h1>أنيميشن رسم سهم من اليمين للشمال</h1>
 
-        <div class="controls">
-            <button id="replayBtn">أعد الحركة</button>
-        </div>
-        
-        <div class="svg-scene">
-            <!-- كود الـ SVG اللي انت بعته بعد تنضيفه شوية -->
-            <svg id="arrow-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 762 549" preserveAspectRatio="xMidYMid meet">
-                <path d="M24.17 529.49c.14.55.59 1.17 2.02 1.31 1.65.17 3.67.31 6.61-.22 5.25-.97 10.94-3.37 11.47-3.57L174.88 472.79c80.53-33.07 162.55-61.17 245.89-83.75 33.46-9.02 67.12-16.92 100.97-24.43 50.7-11.2 101.64-21.22 153.69-27.71.2-.02.4-.04.59-.04 1.79-.16 3.38 1.2 3.54 2.99s-1.2 3.38-2.99 3.54c-52.79 2.72-104.99 7.79-156.56 16.72-34.6 6.94-68.72 14.81-102.7 23.52-84.51 21.7-167.23 50.49-248.79 83.53-30.73 12.58-61.94 24.4-81.91 38.75-12.93 6.22-25.35 13.26-37.93 20.27-.5.35-6.26 3.05-10.2 6.84-2.42 2.3-4.13 4.2-4.63 6.01-1.25 4.57-1.31 4.36-.17 4.51.3.58 1 .77 1.6.54.33-.16.5-.34.59-.59zm.06-1.31zM657.47 317.57c-20.19-1.31-40.07-4.02-60.24-5.85-3.84-.12-6.92-3.29-6.79-7.13.05-3.82 3.29-6.92 7.13-6.79 20.21.89 40.32 2.19 60.57 2.36 20.05.11 40.09-.95 60.16-.99 1.61.02 16.76-.09 21.52 2.21 6.02 2.94 7.83 7.76 7.35 12.5-1.33 4.79-4.83 8.3-9.02 11.71-1.39 1.16-4.52 3.27-8.94 5.95-21.22 13.08-74.85 43.05-81.73 47.07-1.53.9-9.75 7.76-18.98 13.83-7.95 5.32-15.97 11.54-21.34 12.61-12.94 2.7-15.39-3.78-8.46-4.15 0 0 .07-.02.22-.02.95-.02-2.31 0-2-2.79.1-1.05.08-1.7.92-3.01 2.91-4.7 10.55-10.96 17.67-17.24 9.03-7.95 18.54-14.62 20.26-15.64 5.12-3.21 36.69-22.22 60.62-37.02C687.37 318.76 672.39 318.61 657.47 317.57z"></path>
-            </svg>
-        </div>
+      <div class="controls">
+        <button id="replayBtn">أعد الحركة</button>
+      </div>
+
+      <div class="svg-scene">
+        <!-- كود الـ SVG اللي انت بعته بعد تنضيفه شوية -->
+        <svg
+          id="arrow-svg"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 762 549"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          <path
+            d="M24.17 529.49c.14.55.59 1.17 2.02 1.31 1.65.17 3.67.31 6.61-.22 5.25-.97 10.94-3.37 11.47-3.57L174.88 472.79c80.53-33.07 162.55-61.17 245.89-83.75 33.46-9.02 67.12-16.92 100.97-24.43 50.7-11.2 101.64-21.22 153.69-27.71.2-.02.4-.04.59-.04 1.79-.16 3.38 1.2 3.54 2.99s-1.2 3.38-2.99 3.54c-52.79 2.72-104.99 7.79-156.56 16.72-34.6 6.94-68.72 14.81-102.7 23.52-84.51 21.7-167.23 50.49-248.79 83.53-30.73 12.58-61.94 24.4-81.91 38.75-12.93 6.22-25.35 13.26-37.93 20.27-.5.35-6.26 3.05-10.2 6.84-2.42 2.3-4.13 4.2-4.63 6.01-1.25 4.57-1.31 4.36-.17 4.51.3.58 1 .77 1.6.54.33-.16.5-.34.59-.59zm.06-1.31zM657.47 317.57c-20.19-1.31-40.07-4.02-60.24-5.85-3.84-.12-6.92-3.29-6.79-7.13.05-3.82 3.29-6.92 7.13-6.79 20.21.89 40.32 2.19 60.57 2.36 20.05.11 40.09-.95 60.16-.99 1.61.02 16.76-.09 21.52 2.21 6.02 2.94 7.83 7.76 7.35 12.5-1.33 4.79-4.83 8.3-9.02 11.71-1.39 1.16-4.52 3.27-8.94 5.95-21.22 13.08-74.85 43.05-81.73 47.07-1.53.9-9.75 7.76-18.98 13.83-7.95 5.32-15.97 11.54-21.34 12.61-12.94 2.7-15.39-3.78-8.46-4.15 0 0 .07-.02.22-.02.95-.02-2.31 0-2-2.79.1-1.05.08-1.7.92-3.01 2.91-4.7 10.55-10.96 17.67-17.24 9.03-7.95 18.54-14.62 20.26-15.64 5.12-3.21 36.69-22.22 60.62-37.02C687.37 318.76 672.39 318.61 657.47 317.57z"
+          ></path>
+        </svg>
+      </div>
     </div>
 
-
     <script>
-        window.onload = function() {
-            
-            const replayBtn = document.getElementById('replayBtn');
-            
-            // 1. بنحدد كل المسارات اللي جوه الـ SVG
-            // وبنحولها لمصفوفة عشان نقدر نعكسها
-            const svgPaths = Array.from(document.querySelectorAll("#arrow-svg path"));
+      window.onload = function () {
+        const replayBtn = document.getElementById("replayBtn");
 
-            // 2. بنعكس ترتيب المسارات
-            // دي أهم خطوة عشان الرسم يبدأ من اليمين (راس السهم)
-            svgPaths.reverse();
-            
-            const tl = gsap.timeline({ paused: true });
+        // 1. بنحدد كل المسارات اللي جوه الـ SVG
+        // وبنحولها لمصفوفة عشان نقدر نعكسها
+        const svgPaths = Array.from(
+          document.querySelectorAll("#arrow-svg path")
+        );
 
-            // 3. بنعمل الأنيميشن على المسارات المعكوسة
-            tl.from(svgPaths, {
-                duration: 2.5, // مدة الرسم
-                // نفس خدعة الـ strokeDashoffset
-                strokeDashoffset: (i, target) => {
-                     const length = target.getTotalLength();
-                     target.style.strokeDasharray = length;
-                     return length;
-                },
-                ease: 'power2.inOut',
-                stagger: 0.2 // فاصل زمني بسيط بين رسم كل جزء والتاني
-            });
+        // 2. بنعكس ترتيب المسارات
+        // دي أهم خطوة عشان الرسم يبدأ من اليمين (راس السهم)
+        svgPaths.reverse();
 
-            // ربط زرار الإعادة بالأنيميشن
-            replayBtn.addEventListener('click', () => {
-                // بنعمل restart عشان الحركة تبدأ من الأول كل مرة
-                tl.restart(); 
-            });
+        const tl = gsap.timeline({ paused: true });
 
-            // التشغيل الأولي
-            tl.play();
-        };
+        // 3. بنعمل الأنيميشن على المسارات المعكوسة
+        tl.from(svgPaths, {
+          duration: 2.5, // مدة الرسم
+          // نفس خدعة الـ strokeDashoffset
+          strokeDashoffset: (i, target) => {
+            const length = target.getTotalLength();
+            target.style.strokeDasharray = length;
+            return length;
+          },
+          ease: "power2.inOut",
+          stagger: 0.2, // فاصل زمني بسيط بين رسم كل جزء والتاني
+        });
+
+        // ربط زرار الإعادة بالأنيميشن
+        replayBtn.addEventListener("click", () => {
+          // بنعمل restart عشان الحركة تبدأ من الأول كل مرة
+          tl.restart();
+        });
+
+        // التشغيل الأولي
+        tl.play();
+      };
     </script>
-
-</body>
+  </body>
 </html>
