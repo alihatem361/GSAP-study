@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحريك العناصر يمين وشمال</title>
+
+    <!-- 1. استدعاء مكتبة GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .scene {
+            width: 100%;
+            max-width: 600px;
+            height: 120px;
+            background-color: #ffffff;
+            border: 2px dashed #cccccc;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            margin-bottom: 30px;
+        }
+
+        .box {
+            width: 80px;
+            height: 80px;
+            background-color: #4A90E2; /* أزرق */
+            border-radius: 8px;
+            /* هنسيب مكانه الأصلي في النص عن طريق الجافاسكريبت */
+        }
+        
+        .controls button {
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 12px 24px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            transition: transform 0.2s ease;
+        }
+
+        .controls button:hover {
+            transform: scale(1.05);
+        }
+
+        #moveRightBtn {
+            background-color: #28a745; /* أخضر */
+        }
+
+        #moveLeftBtn {
+            background-color: #dc3545; /* أحمر */
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <h1>التحكم في اتجاه الحركة (X)</h1>
+
+    <div class="scene">
+        <div class="box"></div>
+    </div>
+
+    <div class="controls">
+        <button id="moveLeftBtn">حرك شمال</button>
+        <button id="moveRightBtn">حرك يمين</button>
+    </div>
+
+    <script>
+        // بنحدد العناصر اللي هنتعامل معاها
+        const box = document.querySelector('.box');
+        const moveRightBtn = document.querySelector('#moveRightBtn');
+        const moveLeftBtn = document.querySelector('#moveLeftBtn');
+        
+        // بنحط المربع في نص المشهد في البداية
+        gsap.set(box, {x: 240});
+
+        // لما ندوس على زرار "حرك يمين"
+        moveRightBtn.addEventListener('click', () => {
+            // بنحرك المربع 100 بيكسل يمين بالنسبة لمكانه الحالي
+            gsap.to(box, {
+                x: "+=100", // استخدمنا "+=" عشان يتحرك زيادة كل مرة
+                duration: 0.5,
+                ease: "power2.out"
+            });
+        });
+
+        // لما ندوس على زرار "حرك شمال"
+        moveLeftBtn.addEventListener('click', () => {
+            // بنحرك المربع 100 بيكسل شمال بالنسبة لمكانه الحالي
+            gsap.to(box, {
+                x: "-=100", // استخدمنا "-=" عشان يتحرك زيادة كل مرة
+                duration: 0.5,
+                ease: "power2.out"
+            });
+        });
+
+    </script>
+
+</body>
+</html>

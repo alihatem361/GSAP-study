@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>مثال على GSAP Tween</title>
+
+    <!-- 1. بنستدعي مكتبة GSAP من الـ CDN عشان نقدر نستخدمها -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <style>
+      /* شوية تنسيقات بسيطة عشان شكل الصفحة يبقى لطيف */
+      body {
+        font-family: "Cairo", sans-serif;
+        background-color: #f0f2f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 40px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 600px;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      /* تنسيق العناصر اللي هنعملها انيميشن */
+      .box {
+        width: 80px;
+        height: 80px;
+        background-color: #4a90e2; /* أزرق */
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+
+      .circle {
+        width: 80px;
+        height: 80px;
+        background-color: #f5a623; /* برتقالي */
+        border-radius: 50%; /* عشان يبقى دايرة */
+      }
+    </style>
+    <!-- استدعاء خط عربي لتحسين الشكل -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <h1>مثال حي على GSAP Tween</h1>
+
+    <div class="container">
+      <!-- دي العناصر اللي هنحركها -->
+      <div class="box"></div>
+      <div class="circle"></div>
+    </div>
+
+    <script>
+      // بنستنى لما الصفحة كلها تحمل عشان نتأكد إن العناصر موجودة
+      window.onload = function () {
+        // --- الـ Tween الأول: للمربع الأزرق ---
+        // هنا بنقول لـ GSAP: حرك العنصر اللي واخد كلاس "box"
+        // إلى الخصائص الجديدة دي
+        gsap.to(".box", {
+          x: "-450", // حركه 400 بيكسل على المحور الأفقي
+        //   rotation: 360, // لفه لفة كاملة
+          backgroundColor: "#D0021B", // غير لون الخلفية للأحمر
+          duration: 2, // خلي الحركة دي تاخد ثانيتين
+          ease: "power2.inOut", // نوع التسارع والتباطؤ بتاع الحركة
+          repeat: -1, // كرر الحركة دي للأبد
+          yoyo: true, // لما التكرار يحصل، اعكس الحركة وارجع تاني
+          delay: 2, // استنى ثانية كاملة قبل ما تبدأ الحركة
+        });
+
+        // --- الـ Tween الثاني: للدايرة البرتقالي ---
+        // هنا بنستخدم tween مختلف عشان تشوف الفرق
+        gsap.to(".circle", {
+          x: "-450",
+          scale: 0.5, // صغر حجمها للنص
+          opacity: 0, // خليها شفافة تماما
+          duration: 2.5, // مدة الحركة ثانيتين ونص
+          ease: "bounce.out", // خليها تنط في الآخر
+          repeat: -1,
+          yoyo: true,
+          delay: 1, // استنى ثانية كاملة قبل ما تبدأ
+        });
+      };
+    </script>
+  </body>
+</html>
