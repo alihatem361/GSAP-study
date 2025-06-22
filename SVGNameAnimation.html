@@ -88,20 +88,53 @@
       gsap.fromTo(
         "path",
         {
-          opacity: 0.1, // نبدأ من عدم الظهور
-          color: "#000", // نبدأ باللون الأسود
+          opacity: 0.1,
+          fill: "#000",
+          scale: 0.9,
+          rotate: -5,
         },
         {
-          opacity: 1, // نصل إلى الظهور الكامل
-          fill: "#4A90E2", // نغير اللون للأزرق
-          ease: "power1.inOut", // نوع الانيميشن
-          duration: 1, // مدة الانيميشن ثانية واحدة
-          scale: 1.2, // نكبر العناصر قليلاً
-          duration: 2, // مدة الانيميشن نصف ثانية
-          stagger: 0.1, // تأخير بسيط بين كل عنصر وآخر
-          repeat: -1, // نكرر الانيميشن للأبد
+          opacity: 1,
+          fill: "#4A90E2",
+          ease: "power1.inOut",
+          scale: 1.1,
+          rotate: 5,
+          duration: 2,
+          stagger: {
+            amount: 0.5,
+            from: "start",
+            repeat: -1,
+            yoyo: true,
+          },
+          onComplete: function () {
+            gsap.to("path", {
+              fill: "#E74C3C",
+              duration: 1,
+              delay: 0.2,
+              stagger: 0.1,
+            });
+          },
         }
       );
+
+      // Add hover effect to the SVG
+      document.querySelector("svg").addEventListener("mouseenter", function () {
+        gsap.to("path", {
+          scale: 1.2,
+          fill: "#9B59B6",
+          duration: 0.5,
+          stagger: 0.05,
+        });
+      });
+
+      document.querySelector("svg").addEventListener("mouseleave", function () {
+        gsap.to("path", {
+          scale: 1,
+          fill: "#4A90E2",
+          duration: 0.5,
+          stagger: 0.05,
+        });
+      });
 
       //   fill
     </script>
